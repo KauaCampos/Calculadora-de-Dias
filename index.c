@@ -17,20 +17,26 @@ int diasDoMes (Data pessoa);
 int main () {
     Dados *perfis;
     int usuarios;
-    puts ("Insira a quantidade de usuarios: ");
-    scanf ("%d", &usuarios);
-    getchar ();
-    perfis = (Dados*) malloc (usuarios * sizeof (Dados));
-
-    for (int i = 0; i < usuarios; i++) {
-        printf ("Insira o nome da pessoa %d\n", i + 1);
-        fgets (perfis[i].nome, 30, stdin);
-        printf ("Insira o dia/mes/ano de nascimento de %s", perfis[i].nome);
-        scanf ("%d %d %d", &perfis[i].nascimento.dia, &perfis[i].nascimento.mes, &perfis[i].nascimento.ano);
+    while (1) {
+        puts ("Insira a quantidade de usuarios: ");
+        scanf ("%d", &usuarios);
         getchar ();
+        if (usuarios == 0) {
+            puts ("Sessao encerrada.");
+            return 0;
+        }
+
+        perfis = (Dados*) malloc (usuarios * sizeof (Dados));
+
+        for (int i = 0; i < usuarios; i++) {
+            printf ("Insira o nome da pessoa %d\n", i + 1);
+            fgets (perfis[i].nome, 30, stdin);
+            printf ("Insira o dia/mes/ano de nascimento de %s", perfis[i].nome);
+            scanf ("%d %d %d", &perfis[i].nascimento.dia, &perfis[i].nascimento.mes, &perfis[i].nascimento.ano);
+            getchar ();
+        }
+        saida (perfis, usuarios);
     }
-    saida (perfis, usuarios);
-    return 0;
 }
 
 void saida (Dados* perfis, int cont) {
